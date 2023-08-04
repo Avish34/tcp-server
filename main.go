@@ -9,7 +9,7 @@ import (
 
 func main() {
 	log.Println("Starting the server")
-	serverObject := &server.Server{Port: 8080}
-	serverObject.Init()
+	serverObject := &server.Server{Port: 8080, URL: "0.0.0.0", MaxThreads: 2}
+	serverObject.FireUpTheServer()
 	log.Println("Server started")
 }

@@ -4,22 +4,24 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"time"
 )
 
+// Server for accepting tcp connections and processing the request
 type Server struct {
-	Port int // Port on which server should listen
-	ThreadPool int // Number of threads can that be used
-	URL string // URL for the server to run
-	Listener net.Listener // Socket listener
+	Port       int          // Port on which server should listen
+	MaxThreads int          // Number of threads can that be used
+	URL        string       // URL for the server to run
+	Listener   net.Listener // Socket listener
+	WorkerPool              // Collection of threads
 }
 
-func (s *Server) Init() {
+func (s *Server) FireUpTheServer() {
 	s.createListener()
 	s.createThreadPool()
 	s.handleRequest()
 }
 
+// createListener creates a socket listener on the given port
 func (s *Server) createListener() {
 	log.Println("Creating listener")
 	address := s.URL + ":" + fmt.Sprintf("%d",s.Port)
@@ -28,31 +30,34 @@ func (s *Server) createListener() {
 		log.Fatalf("Server creation failed with %v", err)
 	}
 	s.Listener = socketObject
+	
 }
 
+// createThreadPool creates a worker pool based on the threads given
 func (s *Server) createThreadPool() {
-	// TODO
 	log.Println("Creating thread pool")
+	s.WorkerPool = WorkerPool{MaxWorkers: s.MaxThreads, QueueSize: 3}
+	s.NewWorkerPool()
 }
 
+// handleRequest handles the new connections
 func (s *Server) handleRequest() {
 	log.Println("Start handling requests")
+	conn := 0
 	for {
 		client, err := s.Listener.Accept() // blocking
-		log.Printf("Client connected")
+		conn++
+		log.Printf("Client connected %d", conn)
 		if err != nil {
 			log.Fatalf("%v", err)
 		}
 		log.Println("Processing the request")
-		go s.processRequest(client)
+		s.SubmitJob(Job{JobId: conn, Conn: client})
 	}
 }
 
-func (s *Server) processRequest(conn net.Conn) {
-	request := make([]byte, 1024)
-	conn.Read(request)
-	response := []byte("HTTP/1.1 200 OK\r\n\r\n Hello world ! \r\n")
-	time.Sleep(3*time.Second)
-	conn.Write(response)
-	conn.Close()
+// Close closes the socket listener and worker pool
+func (s *Server) Close() {
+	s.Listener.Close()
+	s.WorkerPool.Close()
 }
