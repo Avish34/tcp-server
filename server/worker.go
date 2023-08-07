@@ -4,7 +4,6 @@ import (
 	"log"
 	"net"
 	"sync"
-	"time"
 )
 
 // Job is a task which is submited by server to the worker pool
@@ -39,7 +38,6 @@ func (w *WorkerPool) worker(workerId int) {
 		request := make([]byte, 1024)
 		j.Conn.Read(request)
 		response := []byte("HTTP/1.1 200 OK\r\n\r\n Hello world ! \r\n")
-		time.Sleep(5*time.Second)
 		j.Conn.Write(response)
 		j.Conn.Close()
 	}
