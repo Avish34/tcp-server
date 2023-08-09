@@ -4,16 +4,19 @@ import (
 	"fmt"
 	"log"
 	"net"
+
+	"github.com/Avish34/tcp-server/metrics"
 )
 
 // Server for accepting tcp connections and processing the request
 type Server struct {
-	WorkerPool              // Collection of threads
-	Port       int          // Port on which server should listen
-	URL        string       // URL for the server to run
-	Opts       ServerOpts   // ServerOpts will be used to customize the server
-	Listener   net.Listener // Socket listener
-	reqLimiter TokenBucket  // reqLimiter will the throttle the number of request processed
+	WorkerPool              			// Collection of threads
+	Port       int          			// Port on which server should listen
+	URL        string       			// URL for the server to run
+	Opts       ServerOpts   			// ServerOpts will be used to customize the server
+	Metrics    metrics.ServerMetrics    // Metrics will be used to export to prometheus 
+	Listener   net.Listener 			// Socket listener
+	reqLimiter TokenBucket  			// reqLimiter will the throttle the number of request processed
 }
 
 // ServerOpts is used by Server to customize it as per the user
@@ -68,6 +71,7 @@ func (s *Server) handleRequest() {
 		}
 		log.Println("Processing the request")
 		if s.reqLimiter != (TokenBucket{}) && s.reqLimiter.isRequestAllowed() {
+			s.Metrics.ProcessedRequests.WithLabelValues("processed").Inc()
 			s.SubmitJob(Job{JobId: conn, Conn: client})
 		} else {
 			log.Println("You have reached your API limit, please wait before re-trying")
