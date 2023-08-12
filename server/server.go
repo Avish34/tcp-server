@@ -23,8 +23,8 @@ type Server struct {
 type ServerOpts struct {
 	Rate 	   int64 // Rate at which bucket should be filled with tokens, defined per seconds
 	Tokens     int64 // Number of Tokens for rate limiter 
-	MaxThreads int // Number of threads can that be used
-	QueueSize  int // Request to be put in queue if workers are busy
+	MaxThreads int   // Number of threads can that be used
+	QueueSize  int   // Request to be put in queue if workers are busy
 }
 
 func (s *Server) FireUpTheServer() {
