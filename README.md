@@ -10,11 +10,13 @@ An adaptable multi-threaded TCP server equipped with built-in rate limiting, aff
 1. git clone https://github.com/Avish34/tcp-server
 2. cd tcp-server
 3. make start-service
-
->      ⠿ Container tools-prometheus-1  Started                                                                                                                          0.5s
->      ⠿ Container tools-tcp-server-1  Started                                                                                                                     0.5s
+   
 After running (3) command, use should see this output.
-Server will be listening on 8080. To edit the port and other settings, you can find customise section below.
+Server will be listening on 8080. To edit the port and other settings, you can find customise section below in the README.
+
+
+>      ⠿ Container tools-prometheus-1  Started                                                                                                                          
+>      ⠿ Container tools-tcp-server-1  Started  
 
 Send request to the server. You should see "Hello world as response"
 
