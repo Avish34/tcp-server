@@ -11,7 +11,7 @@ An adaptable multi-threaded TCP server equipped with built-in rate limiting, aff
 2. cd tcp-server
 3. make start-service
    
-After running (3) command, use should see this output.
+After running (3) command, you should see this output.
 Server will be listening on 8080. To edit the port and other settings, you can find customise section below in the README.
 
 
@@ -30,3 +30,11 @@ To check the total request accepted by the server. Open http://localhost:9090/. 
 This server comes with capability to throttle request using rate limiting, serving multiple request using workers. This is completly customisable, it can be done via changing the .env file present in
 
 >  tools/dockerfiles/tcp-server/.env
+
+You should be able to see the below parameters and can change it according to use system capabilites and the requirements.
+> SERVER_PORT=8080
+> SERVER_URL=0.0.0.0
+> SERVER_QUEUE_SIZE=5
+> SERVER_WORKERS=2
+> SERVER_TOKEN_LIMIT=1
+> SERVER_TOKEN_RATE=5
