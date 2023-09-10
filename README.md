@@ -25,6 +25,8 @@ Send request to the server. You should see "Hello world as response"
 
 ### Metrics
 To check the total request accepted by the server. Open http://localhost:9090/. Search for *total_request* in Expression search bar. Check the below image for reference.
+<img width="1336" alt="Screenshot 2023-09-10 at 12 08 50 PM" src="https://github.com/Avish34/tcp-server/assets/45288918/b5548648-fd7c-4517-b068-415f33d37c17">
+
 
 ## Customisation
 This server comes with capability to throttle request using rate limiting, serving multiple request using workers. This is completly customisable, it can be done via changing the .env file present in
