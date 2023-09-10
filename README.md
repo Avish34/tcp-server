@@ -1,4 +1,13 @@
-![Go-Logo_Blue](https://github.com/Avish34/tcp-server/assets/45288918/f4c7a31b-ac33-42b8-a24b-164f2197a0a0) ![01-symbol_blue-docker-logo](https://github.com/Avish34/tcp-server/assets/45288918/80755845-f314-4d00-82c3-0ad9c6bb821b)
+<p align="center">
+  <p align="center">
+    </br>
+     <img src="https://github.com/Avish34/tcp-server/assets/45288918/f4c7a31b-ac33-42b8-a24b-164f2197a0a0"  height="64">
+      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+      <img src="https://github.com/Avish34/tcp-server/assets/45288918/80755845-f314-4d00-82c3-0ad9c6bb821b"  height="64">
+        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+  </p>
+</p>
+
 
 # tcp-server
 An adaptable multi-threaded TCP server equipped with built-in rate limiting, affording you the flexibility to tailor thread configurations and rate limits to your specific needs. It comes with metrics support like total request processed by server at a given time, useful for users to analyse the server performance.
